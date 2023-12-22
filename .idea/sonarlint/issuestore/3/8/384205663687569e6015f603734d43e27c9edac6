@@ -1,0 +1,4 @@
+
+gc:S134…"MRefactor this code to not nest more than 3 if|for|do|while|switch statements.(×Žð†8å±³€É1
+=c:S21934"#Do not use a counter of type float.(Ã¿‚ó8ÏÜ’ýÈ1
+cc:S924m"EReduce the number of nested "goto" statements from 2 to 1 authorized.(ë¢Ãºýÿÿÿÿ8‘ù¦€É1

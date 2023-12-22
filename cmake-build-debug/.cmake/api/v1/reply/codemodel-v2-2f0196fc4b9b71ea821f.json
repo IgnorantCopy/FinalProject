@@ -1,0 +1,110 @@
+{
+	"configurations" : 
+	[
+		{
+			"directories" : 
+			[
+				{
+					"build" : ".",
+					"childIndexes" : 
+					[
+						1
+					],
+					"jsonFile" : "directory-.-Debug-d0094a50bb2071803777.json",
+					"minimumCMakeVersion" : 
+					{
+						"string" : "3.26"
+					},
+					"projectIndex" : 0,
+					"source" : "."
+				},
+				{
+					"build" : "MyParkour",
+					"childIndexes" : 
+					[
+						2
+					],
+					"jsonFile" : "directory-MyParkour-Debug-4f13d8a0d5eb453d8093.json",
+					"minimumCMakeVersion" : 
+					{
+						"string" : "3.26"
+					},
+					"parentIndex" : 0,
+					"projectIndex" : 0,
+					"source" : "MyParkour"
+				},
+				{
+					"build" : "MyParkour/test",
+					"jsonFile" : "directory-MyParkour.test-Debug-d0a9cd6c4d16e9c3a96a.json",
+					"minimumCMakeVersion" : 
+					{
+						"string" : "3.26"
+					},
+					"parentIndex" : 1,
+					"projectIndex" : 0,
+					"source" : "MyParkour/test",
+					"targetIndexes" : 
+					[
+						0,
+						1,
+						2
+					]
+				}
+			],
+			"name" : "Debug",
+			"projects" : 
+			[
+				{
+					"directoryIndexes" : 
+					[
+						0,
+						1,
+						2
+					],
+					"name" : "FinalProject",
+					"targetIndexes" : 
+					[
+						0,
+						1,
+						2
+					]
+				}
+			],
+			"targets" : 
+			[
+				{
+					"directoryIndex" : 2,
+					"id" : "MyCJsonTest::@4299b5f132d8157280be",
+					"jsonFile" : "target-MyCJsonTest-Debug-63f8a416fde6baab4c03.json",
+					"name" : "MyCJsonTest",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 2,
+					"id" : "SDLTest::@4299b5f132d8157280be",
+					"jsonFile" : "target-SDLTest-Debug-3e18e8e44dbfae6a64d1.json",
+					"name" : "SDLTest",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 2,
+					"id" : "test::@4299b5f132d8157280be",
+					"jsonFile" : "target-test-Debug-f79b940ab012338f3a11.json",
+					"name" : "test",
+					"projectIndex" : 0
+				}
+			]
+		}
+	],
+	"kind" : "codemodel",
+	"paths" : 
+	{
+		"build" : "D:/codes/FinalProject/cmake-build-debug",
+		"source" : "D:/codes/FinalProject"
+	},
+	"version" : 
+	{
+		"major" : 2,
+		"minor" : 6
+	}
+}
