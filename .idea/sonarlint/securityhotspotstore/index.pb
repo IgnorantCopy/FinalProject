@@ -5,8 +5,6 @@
 CMakeLists.txt,9\a\9a2aa4db38d3115ed60da621e012c0efc0172aae
 H
 MyParkour/CMakeLists.txt,f\2\f2fb7ab064431dff757c70652f0bd364ec905b06
-C
-MyParkour/SDLTest.c,5\b\5b286925929b1fa6457d3ed98015095b7b352324
 L
 MyParkour/test/MyCJsonTest.c,4\4\4497dc5399ba7762c962e320d76fca507b65c721
 H
@@ -17,3 +15,35 @@ E
 MyParkour/test/test.c,4\0\40f1385dd9ddae251c0d854483470f832088f603
 H
 MyParkour/test/SDLTest.c,3\8\384205663687569e6015f603734d43e27c9edac6
+L
+MyParkour/src/CMakeLists.txt,a\e\aeb4a3196dd79e31418a62c645fec2c82ac4df42
+K
+MyParkour/src/utils/audio.c,8\6\86b74ed2a7160d7aae0f1ee585760f3763359964
+K
+MyParkour/src/utils/input.c,d\3\d318eae73d9582e029c98635c9d2ab7e44213314
+D
+MyParkour/src/main.c,c\2\c2cd87af05736b399a23bf13445197d5290293b6
+D
+MyParkour/src/menu.c,2\5\25ad3e22800266c8a48e6267274e65536bc6150a
+H
+MyParkour/include/menu.h,0\2\02c7d5d7149b1fef7851f22b46157e2bdd1b7225
+O
+MyParkour/include/utils/audio.h,a\2\a210b20d8a728524dc316377b43bf79f17650786
+O
+MyParkour/include/utils/input.h,1\2\1277150866dc71cea77e0c35c9492c2334abc832
+J
+MyParkour/include/common.h,8\5\8597461f9d4be0f4938518448e4009640d8963b0
+H
+MyParkour/include/main.h,9\0\9039040e602e2fe9061baa3eb2a6164fc469baa4
+I
+MyParkour/include/cJSON.h,b\7\b73fb8eac46821b3ff881e0fc142b71faeb3dc8e
+E
+MyParkour/src/cJSON.c,1\8\1813ca0eff22921fd79ee61a4c9657a35178e5cc
+Q
+!MyParkour/include/utils/display.h,2\5\25534d19efa96fca532771f65a40230c2964e0ac
+M
+MyParkour/src/utils/display.c,4\4\4435136ba0e4ce12ecee349fb5e93400529c4a86
+I
+MyParkour/src/game/game.c,2\0\2059cf021e5936b12b45c8d328de358fddc31776
+M
+MyParkour/include/game/game.h,7\2\72bb944162e47e2fe53baa0a9b0f15191760d7b9

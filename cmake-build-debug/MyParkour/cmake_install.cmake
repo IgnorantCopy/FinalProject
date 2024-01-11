@@ -42,3 +42,8 @@ if(NOT CMAKE_INSTALL_LOCAL_ONLY)
   include("D:/codes/FinalProject/cmake-build-debug/MyParkour/test/cmake_install.cmake")
 endif()
 
+if(NOT CMAKE_INSTALL_LOCAL_ONLY)
+  # Include the install script for the subdirectory.
+  include("D:/codes/FinalProject/cmake-build-debug/MyParkour/src/cmake_install.cmake")
+endif()
+

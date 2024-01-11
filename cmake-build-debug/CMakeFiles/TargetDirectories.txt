@@ -7,3 +7,7 @@ D:/codes/FinalProject/cmake-build-debug/MyParkour/test/CMakeFiles/MyCJsonTest.di
 D:/codes/FinalProject/cmake-build-debug/MyParkour/test/CMakeFiles/SDLTest.dir
 D:/codes/FinalProject/cmake-build-debug/MyParkour/test/CMakeFiles/edit_cache.dir
 D:/codes/FinalProject/cmake-build-debug/MyParkour/test/CMakeFiles/rebuild_cache.dir
+D:/codes/FinalProject/cmake-build-debug/MyParkour/src/CMakeFiles/cJSON.dir
+D:/codes/FinalProject/cmake-build-debug/MyParkour/src/CMakeFiles/Parkour.dir
+D:/codes/FinalProject/cmake-build-debug/MyParkour/src/CMakeFiles/edit_cache.dir
+D:/codes/FinalProject/cmake-build-debug/MyParkour/src/CMakeFiles/rebuild_cache.dir

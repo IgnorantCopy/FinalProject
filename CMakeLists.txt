@@ -16,3 +16,13 @@ target_link_libraries(SDLTest PRIVATE
         SDL2_mixer
         SDL2_ttf
 )
+
+target_link_libraries(Parkour PRIVATE
+        mingw32
+        SDL2main
+        SDL2
+        SDL2_image
+        SDL2_mixer
+        SDL2_ttf
+)
+

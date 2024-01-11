@@ -1,8 +1,8 @@
 
-Lc:S1121ª",Extract the assignment from this expression.(Æ”Ñşÿÿÿÿ8ßÿ²üÈ1
-Gc:S1121Ò",Extract the assignment from this expression.(€“ƒ‰8ßÿ²üÈ1
-Gc:S1121Ö",Extract the assignment from this expression.(ÌŸàÀ8ßÿ²üÈ1
+Lc:S1121ª",Extract the assignment from this expression.(Æ”Ñşÿÿÿÿ8ŸîáÉ1
+Gc:S1121Ò",Extract the assignment from this expression.(€“ƒ‰8ŸîáÉ1
+Gc:S1121Ö",Extract the assignment from this expression.(ÌŸàÀ8ŸîáÉ1
 §c:S3687£"Check if the usage of the type "volatile double" is really appropriate here (for inter-thread synchronization, atomic types are more suited).(Ñç£ˆúÿÿÿÿ
-Lc:S1121æ",Extract the assignment from this expression.(³†Æ™ÿÿÿÿÿ8áÿ²üÈ1
+Lc:S1121æ",Extract the assignment from this expression.(³†Æ™ÿÿÿÿÿ8‘ŸîáÉ1
 6c:S125È"Remove the commented out code.(ÅŸ¯ºûÿÿÿÿ
 1c:S125ñ"Remove the commented out code.(®Ç®

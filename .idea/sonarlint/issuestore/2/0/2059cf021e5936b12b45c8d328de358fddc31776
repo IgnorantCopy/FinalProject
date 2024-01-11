@@ -1,0 +1,7 @@
+
+9c:S1481"unused variable 'wayIndex'(ƒöÙ…ÿÿÿÿÿ8ÖÂÅ¹Ï1
+1c:S1481"unused variable 'speed'(€¥‰8×ÂÅ¹Ï1
+xc:S1186s"YAdd a nested comment explaining why this method is empty, or complete the implementation.(š‰Ş”ıÿÿÿÿ8 ƒÅ¹Ï1
+sc:S1186w"YAdd a nested comment explaining why this method is empty, or complete the implementation.(Ø£Õ8ÉÂÇ¹Ï1
+Bc:S1172w"(Remove the unused parameter "scoreText".(Ø£Õ8ËëÄ¹Ï1
+€c:S995w"gMake the type of this parameter a pointer-to-const. The current type of "scoreText" is "struct Text *".(Ø£Õ8ÌëÄ¹Ï1

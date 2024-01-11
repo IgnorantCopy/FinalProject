@@ -68,7 +68,7 @@ int main() {
     IMG_Init(IMG_INIT_JPG | IMG_INIT_PNG);
     // 创建图片渲染器
     SDL_Surface *surfaceBackground0;
-    if (!(surfaceBackground0 = IMG_Load("../image/background_0.jpg"))) {
+    if (!(surfaceBackground0 = IMG_Load("../image/background_0.png"))) {
         printf("Failed to load background: %s\n", SDL_GetError());
         return 1;
     }
