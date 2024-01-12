@@ -34,7 +34,7 @@ void StartUp() {
     while (!app.keyboard[SDL_SCANCODE_ESCAPE]) {
         SDL_Event event;
         while (SDL_PollEvent(&event)) {
-            DoEvent(event, 0);
+            DoEvent(event);
         }
         if (DrawStart(&background, &title, bars)) {
             DisplayImage(&background, 0, 0, 0);
@@ -117,9 +117,8 @@ void DisplayMenu() {
     DrawMenu(&background, &arrow, &title, choices);
     DoFps();
     while (!app.keyboard[SDL_SCANCODE_ESCAPE] && SDL_WaitEvent(&event)) {
-        DoEvent(event, 0);
+        DoEvent(event);
         int flag = DoWidgets();
-        printf("%d\n", flag);
         if (flag == 0 || flag == 2) {
             break;
         } else if (flag == 1) {
@@ -161,7 +160,7 @@ static void UpdateArrow(Image *arrow, Text choice) {
     arrow->rect.y = WIDGET_Y + selection * GAP_Y + choice.rect.h / 2 - arrow->rect.h / 2;
 }
 
-void InitWidgets() {
+static void InitWidgets() {
     widgets = malloc(NUM_OF_WIDGETS * sizeof(Widget));
     widgets[0] = (Widget) {"Start", WIDGET_X, WIDGET_Y, ActionStart};
     widgets[1] = (Widget) {"Data", WIDGET_X, WIDGET_Y + GAP_Y, ActionData};
@@ -185,7 +184,7 @@ static int ActWidget() {
     return -1;
 }
 
-int DoWidgets() {
+static int DoWidgets() {
     if (app.keyboard[SDL_SCANCODE_UP]) {
         PrevWidget();
     } else if (app.keyboard[SDL_SCANCODE_DOWN]) {
@@ -196,7 +195,7 @@ int DoWidgets() {
     return -1;
 }
 
-void QuitWidgets() {
+static void QuitWidgets() {
     free(widgets);
 }
 

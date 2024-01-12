@@ -26,7 +26,7 @@ static void DoKeyUp(SDL_KeyboardEvent key) {
     app.keyboard[key.keysym.scancode] = false;
 }
 
-void DoEvent(SDL_Event event, int flag) {
+void DoEvent(SDL_Event event) {
     switch (event.type) {
         case SDL_QUIT:
             Quit();

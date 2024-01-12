@@ -21,8 +21,7 @@ int main() {
     
     StartUp();
     DisplayMenu();
-    DoGameLogic();
-    
+    while (DoGameLogic());
     return 0;
 }
 

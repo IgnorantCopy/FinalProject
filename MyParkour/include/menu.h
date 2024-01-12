@@ -35,9 +35,9 @@ static void PrevWidget();
 static void NextWidget();
 static int ActWidget();
 
-void InitWidgets();
-int DoWidgets();
-void QuitWidgets();
+static void InitWidgets();
+static int DoWidgets();
+static void QuitWidgets();
 
 static int ActionStart();
 static int ActionData();

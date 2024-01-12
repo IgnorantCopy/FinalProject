@@ -13,6 +13,6 @@ static void DoMouseButtonUp(SDL_MouseButtonEvent button);
 static void DoKeyDown(SDL_KeyboardEvent key);
 static void DoKeyUp(SDL_KeyboardEvent key);
 
-void DoEvent(SDL_Event event, int flag);
+void DoEvent(SDL_Event event);
 
 #endif //FINALPROJECT_INPUT_H
