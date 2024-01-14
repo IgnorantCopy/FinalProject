@@ -9,9 +9,9 @@
 #include <stdbool.h>
 #include "common.h"
 #include "menu.h"
-#include "game/game.h"
+#include "game.h"
 #include "utils/input.h"
-#include "utils/audio.h"
+#include "utils/widget.h"
 #include "utils/display.h"
 #include "cJSON.h"
 #include "SDL2/SDL.h"

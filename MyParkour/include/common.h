@@ -12,6 +12,8 @@
 #include <stdio.h>
 #include <stdbool.h>
 #include <stdlib.h>
+#include <stdarg.h>
+#include <time.h>
 
 #define HANDLE_ERROR(msg) printf(msg "SDL: %s\n", SDL_GetError()); \
     exit(EXIT_FAILURE)

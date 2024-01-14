@@ -13,15 +13,6 @@
 #define WIDGET_Y 500
 #define GAP_Y 100
 
-typedef int (*Action)();
-
-typedef struct Widget {
-    char *text;
-    int x;
-    int y;
-    Action action;
-} Widget;
-
 void StartUp();
 static int DrawStart(Image *background, Text *title, Image *bars);
 
@@ -30,14 +21,6 @@ static void DrawMenu(Image *background, Image *arrow, Text *title, Text *choices
 
 static void UpdateChoices(Text *choices);
 static void UpdateArrow(Image *arrow, Text choice);
-
-static void PrevWidget();
-static void NextWidget();
-static int ActWidget();
-
-static void InitWidgets();
-static int DoWidgets();
-static void QuitWidgets();
 
 static int ActionStart();
 static int ActionData();

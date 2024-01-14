@@ -31,8 +31,12 @@ void DisplayImage(Image *image, int x, int y, int flag) {
 }
 
 void QuitImage(Image *image) {
-    SDL_DestroyTexture(image->texture);
-    SDL_FreeSurface(image->surface);
+    if (image->texture != NULL) {
+        SDL_DestroyTexture(image->texture);
+    }
+    if (image->surface != NULL) {
+        SDL_FreeSurface(image->surface);
+    }
 }
 
 void InitText(Text *text, const char *font, int size, char *content, const SDL_Color *color) {
@@ -53,7 +57,11 @@ void DisplayText(Text *text, int x, int y) {
 }
 
 void QuitText(Text *text) {
-    SDL_DestroyTexture(text->texture);
-    SDL_FreeSurface(text->surface);
+    if (text->texture != NULL) {
+        SDL_DestroyTexture(text->texture);
+    }
+    if (text->surface != NULL) {
+        SDL_FreeSurface(text->surface);
+    }
 }
 

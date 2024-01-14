@@ -20,8 +20,10 @@ int main() {
     atexit(&QuitApp);
     
     StartUp();
-    DisplayMenu();
-    while (DoGameLogic());
+    if (!app.keyboard[SDL_SCANCODE_ESCAPE]) {
+        DisplayMenu();
+    }
+    while (DoGameLogic() && !app.keyboard[SDL_SCANCODE_ESCAPE]);
     return 0;
 }
 

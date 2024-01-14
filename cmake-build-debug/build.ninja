@@ -215,6 +215,41 @@ build MyParkour/test/SDLTest.exe: C_EXECUTABLE_LINKER__SDLTest_Debug MyParkour/t
   TARGET_IMPLIB = MyParkour\test\libSDLTest.dll.a
   TARGET_PDB = SDLTest.exe.dbg
 
+# =============================================================================
+# Object build statements for EXECUTABLE target new
+
+
+#############################################
+# Order-only phony target for new
+
+build cmake_object_order_depends_target_new: phony || MyParkour/test/CMakeFiles/new.dir
+
+build MyParkour/test/CMakeFiles/new.dir/new.c.obj: C_COMPILER__new_unscanned_Debug D$:/codes/FinalProject/MyParkour/test/new.c || cmake_object_order_depends_target_new
+  DEP_FILE = MyParkour\test\CMakeFiles\new.dir\new.c.obj.d
+  FLAGS = -g -std=gnu11 -fdiagnostics-color=always
+  INCLUDES = -ID:/codes/FinalProject/../../Import/mingw(CLion+VSC)/SDL2-2.26.0-allinone/x86_64-w64-mingw32/include -ID:/codes/FinalProject/MyParkour/include
+  OBJECT_DIR = MyParkour\test\CMakeFiles\new.dir
+  OBJECT_FILE_DIR = MyParkour\test\CMakeFiles\new.dir
+
+
+# =============================================================================
+# Link build statements for EXECUTABLE target new
+
+
+#############################################
+# Link the executable MyParkour\test\new.exe
+
+build MyParkour/test/new.exe: C_EXECUTABLE_LINKER__new_Debug MyParkour/test/CMakeFiles/new.dir/new.c.obj
+  FLAGS = -g
+  LINK_LIBRARIES = -lkernel32 -luser32 -lgdi32 -lwinspool -lshell32 -lole32 -loleaut32 -luuid -lcomdlg32 -ladvapi32
+  LINK_PATH = -LD:/codes/FinalProject/../../Import/mingw(CLion+VSC)/SDL2-2.26.0-allinone/x86_64-w64-mingw32/bin
+  OBJECT_DIR = MyParkour\test\CMakeFiles\new.dir
+  POST_BUILD = cd .
+  PRE_LINK = cd .
+  TARGET_FILE = MyParkour\test\new.exe
+  TARGET_IMPLIB = MyParkour\test\libnew.dll.a
+  TARGET_PDB = new.exe.dbg
+
 
 #############################################
 # Utility command for edit_cache
@@ -301,8 +336,8 @@ build MyParkour/src/CMakeFiles/Parkour.dir/menu.c.obj: C_COMPILER__Parkour_unsca
   OBJECT_DIR = MyParkour\src\CMakeFiles\Parkour.dir
   OBJECT_FILE_DIR = MyParkour\src\CMakeFiles\Parkour.dir
 
-build MyParkour/src/CMakeFiles/Parkour.dir/utils/audio.c.obj: C_COMPILER__Parkour_unscanned_Debug D$:/codes/FinalProject/MyParkour/src/utils/audio.c || cmake_object_order_depends_target_Parkour
-  DEP_FILE = MyParkour\src\CMakeFiles\Parkour.dir\utils\audio.c.obj.d
+build MyParkour/src/CMakeFiles/Parkour.dir/utils/widget.c.obj: C_COMPILER__Parkour_unscanned_Debug D$:/codes/FinalProject/MyParkour/src/utils/widget.c || cmake_object_order_depends_target_Parkour
+  DEP_FILE = MyParkour\src\CMakeFiles\Parkour.dir\utils\widget.c.obj.d
   FLAGS = -g -std=gnu11 -fdiagnostics-color=always
   INCLUDES = -ID:/codes/FinalProject/../../Import/mingw(CLion+VSC)/SDL2-2.26.0-allinone/x86_64-w64-mingw32/include -ID:/codes/FinalProject/MyParkour/include
   OBJECT_DIR = MyParkour\src\CMakeFiles\Parkour.dir
@@ -322,12 +357,12 @@ build MyParkour/src/CMakeFiles/Parkour.dir/utils/display.c.obj: C_COMPILER__Park
   OBJECT_DIR = MyParkour\src\CMakeFiles\Parkour.dir
   OBJECT_FILE_DIR = MyParkour\src\CMakeFiles\Parkour.dir\utils
 
-build MyParkour/src/CMakeFiles/Parkour.dir/game/game.c.obj: C_COMPILER__Parkour_unscanned_Debug D$:/codes/FinalProject/MyParkour/src/game/game.c || cmake_object_order_depends_target_Parkour
-  DEP_FILE = MyParkour\src\CMakeFiles\Parkour.dir\game\game.c.obj.d
+build MyParkour/src/CMakeFiles/Parkour.dir/game.c.obj: C_COMPILER__Parkour_unscanned_Debug D$:/codes/FinalProject/MyParkour/src/game.c || cmake_object_order_depends_target_Parkour
+  DEP_FILE = MyParkour\src\CMakeFiles\Parkour.dir\game.c.obj.d
   FLAGS = -g -std=gnu11 -fdiagnostics-color=always
   INCLUDES = -ID:/codes/FinalProject/../../Import/mingw(CLion+VSC)/SDL2-2.26.0-allinone/x86_64-w64-mingw32/include -ID:/codes/FinalProject/MyParkour/include
   OBJECT_DIR = MyParkour\src\CMakeFiles\Parkour.dir
-  OBJECT_FILE_DIR = MyParkour\src\CMakeFiles\Parkour.dir\game
+  OBJECT_FILE_DIR = MyParkour\src\CMakeFiles\Parkour.dir
 
 
 # =============================================================================
@@ -337,7 +372,7 @@ build MyParkour/src/CMakeFiles/Parkour.dir/game/game.c.obj: C_COMPILER__Parkour_
 #############################################
 # Link the executable MyParkour\src\Parkour.exe
 
-build MyParkour/src/Parkour.exe: C_EXECUTABLE_LINKER__Parkour_Debug MyParkour/src/CMakeFiles/Parkour.dir/main.c.obj MyParkour/src/CMakeFiles/Parkour.dir/menu.c.obj MyParkour/src/CMakeFiles/Parkour.dir/utils/audio.c.obj MyParkour/src/CMakeFiles/Parkour.dir/utils/input.c.obj MyParkour/src/CMakeFiles/Parkour.dir/utils/display.c.obj MyParkour/src/CMakeFiles/Parkour.dir/game/game.c.obj
+build MyParkour/src/Parkour.exe: C_EXECUTABLE_LINKER__Parkour_Debug MyParkour/src/CMakeFiles/Parkour.dir/main.c.obj MyParkour/src/CMakeFiles/Parkour.dir/menu.c.obj MyParkour/src/CMakeFiles/Parkour.dir/utils/widget.c.obj MyParkour/src/CMakeFiles/Parkour.dir/utils/input.c.obj MyParkour/src/CMakeFiles/Parkour.dir/utils/display.c.obj MyParkour/src/CMakeFiles/Parkour.dir/game.c.obj
   FLAGS = -g
   LINK_LIBRARIES = -lmingw32  -lSDL2main  -lSDL2  -lSDL2_image  -lSDL2_mixer  -lSDL2_ttf  -lkernel32 -luser32 -lgdi32 -lwinspool -lshell32 -lole32 -loleaut32 -luuid -lcomdlg32 -ladvapi32
   LINK_PATH = -LD:/codes/FinalProject/../../Import/mingw(CLion+VSC)/SDL2-2.26.0-allinone/x86_64-w64-mingw32/bin
@@ -390,6 +425,10 @@ build cJSON: phony MyParkour/src/cJSON.exe
 
 build cJSON.exe: phony MyParkour/src/cJSON.exe
 
+build new: phony MyParkour/test/new.exe
+
+build new.exe: phony MyParkour/test/new.exe
+
 build test: phony MyParkour/test/test.exe
 
 build test.exe: phony MyParkour/test/test.exe
@@ -423,7 +462,7 @@ build MyParkour/src/all: phony MyParkour/src/cJSON.exe MyParkour/src/Parkour.exe
 #############################################
 # Folder: D:/codes/FinalProject/cmake-build-debug/MyParkour/test
 
-build MyParkour/test/all: phony MyParkour/test/test.exe MyParkour/test/MyCJsonTest.exe MyParkour/test/SDLTest.exe
+build MyParkour/test/all: phony MyParkour/test/test.exe MyParkour/test/MyCJsonTest.exe MyParkour/test/SDLTest.exe MyParkour/test/new.exe
 
 # =============================================================================
 # Built-in targets

@@ -182,13 +182,6 @@
 				4,
 				5
 			]
-		},
-		{
-			"name" : "Header Files",
-			"sourceIndexes" : 
-			[
-				6
-			]
 		}
 	],
 	"sources" : 
@@ -208,7 +201,7 @@
 		{
 			"backtrace" : 1,
 			"compileGroupIndex" : 0,
-			"path" : "MyParkour/src/utils/audio.c",
+			"path" : "MyParkour/src/utils/widget.c",
 			"sourceGroupIndex" : 0
 		},
 		{
@@ -226,13 +219,8 @@
 		{
 			"backtrace" : 1,
 			"compileGroupIndex" : 0,
-			"path" : "MyParkour/src/game/game.c",
+			"path" : "MyParkour/src/game.c",
 			"sourceGroupIndex" : 0
-		},
-		{
-			"backtrace" : 1,
-			"path" : "MyParkour/include/game/game.h",
-			"sourceGroupIndex" : 1
 		}
 	],
 	"type" : "EXECUTABLE"

@@ -5,7 +5,7 @@
 #include "menu.h"
 #include "utils/input.h"
 #include "utils/display.h"
-#include "game/game.h"
+#include "utils/widget.h"
 
 static Widget *widgets;
 static int selection;
@@ -52,6 +52,9 @@ void StartUp() {
 }
 
 static int DrawStart(Image *background, Text *title, Image *bars) {
+    if (app.keyboard[SDL_SCANCODE_ESCAPE]) {
+        return 0;
+    }
     static bool isLoading1 = true;
     static bool isLoading2 = true;
     static double alphaBackgroundRate = 0;
@@ -99,7 +102,16 @@ void DisplayMenu() {
     Text title;
     InitImage(&background, "../image/background_0.png", 0);
     InitText(&title, "../fonts/CURLZ___.TTF", 200, "Parkour", &BLACK);
-    InitWidgets();
+    
+    Action actions[] = {ActionStart, ActionData, ActionQuit};
+    char *contents[] = {
+            "Start",
+            "Data",
+            "Quit"
+    };
+    widgets = malloc(NUM_OF_WIDGETS * sizeof(Widget));
+    InitWidgets(widgets, NUM_OF_WIDGETS, &selection, actions, WIDGET_X, WIDGET_Y, GAP_Y, contents);
+    
     Mix_Music *bgm;
     if (!(bgm = Mix_LoadMUS("../audio/bgm0.MP3"))) {
         HANDLE_ERROR("InitAudio bgm0");
@@ -118,7 +130,7 @@ void DisplayMenu() {
     DoFps();
     while (!app.keyboard[SDL_SCANCODE_ESCAPE] && SDL_WaitEvent(&event)) {
         DoEvent(event);
-        int flag = DoWidgets();
+        int flag = DoWidgets(widgets, &selection, NUM_OF_WIDGETS);
         if (flag == 0 || flag == 2) {
             break;
         } else if (flag == 1) {
@@ -131,7 +143,7 @@ void DisplayMenu() {
     for (int i = 0; i < NUM_OF_WIDGETS; i++) {
         QuitText(&choices[i]);
     }
-    QuitWidgets();
+    QuitWidgets(widgets);
     QuitText(&title);
     QuitImage(&arrow);
     QuitImage(&background);
@@ -160,52 +172,11 @@ static void UpdateArrow(Image *arrow, Text choice) {
     arrow->rect.y = WIDGET_Y + selection * GAP_Y + choice.rect.h / 2 - arrow->rect.h / 2;
 }
 
-static void InitWidgets() {
-    widgets = malloc(NUM_OF_WIDGETS * sizeof(Widget));
-    widgets[0] = (Widget) {"Start", WIDGET_X, WIDGET_Y, ActionStart};
-    widgets[1] = (Widget) {"Data", WIDGET_X, WIDGET_Y + GAP_Y, ActionData};
-    widgets[2] = (Widget) {"Quit", WIDGET_X, WIDGET_Y + GAP_Y * 2, ActionQuit};
-    selection = 0;
-}
-
-static void PrevWidget() {
-    selection = (selection - 1 + NUM_OF_WIDGETS) % NUM_OF_WIDGETS;
-}
-
-static void NextWidget() {
-    selection = (selection + 1) % NUM_OF_WIDGETS;
-}
-
-static int ActWidget() {
-    Action action = widgets[selection].action;
-    if (action != NULL) {
-        return action();
-    }
-    return -1;
-}
-
-static int DoWidgets() {
-    if (app.keyboard[SDL_SCANCODE_UP]) {
-        PrevWidget();
-    } else if (app.keyboard[SDL_SCANCODE_DOWN]) {
-        NextWidget();
-    } else if (app.keyboard[SDL_SCANCODE_RETURN]) {
-        return ActWidget();
-    }
-    return -1;
-}
-
-static void QuitWidgets() {
-    free(widgets);
-}
-
 static int ActionStart() {
-    printf("Start\n");
     return 0;
 }
 
 static int ActionData() {
-    printf("Data\n");
     return 1;
 }
 
