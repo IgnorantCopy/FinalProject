@@ -185,7 +185,71 @@ static int ActionQuit() {
     return 2;
 }
 
-// TODO
 void ShowData() {
-
+    Image background;
+    InitImage(&background, "../image/background_0.png", 0);
+    
+    Text maxScoreText;
+    char maxScore[100] = "Max Score: ";
+    Text averageScoreText;
+    char averageScore[100] = "Average Score: ";
+    Text roundNumberText;
+    char roundNumber[50] = "Round Number: ";
+    
+    FILE *test = fopen("../data/data.json", "r");
+    if (test == NULL) {
+        cJSON *root = cJSON_CreateObject();
+        cJSON_AddStringToObject(root, "Max Score", "0");
+        cJSON_AddStringToObject(root, "Average Score", "0");
+        cJSON_AddStringToObject(root, "Round Number", "0");
+        FILE *defaultData = fopen("../data/data.json", "w");
+        if (defaultData != NULL) {
+            const char *buffer = cJSON_Print(root);
+            fwrite(buffer, strlen(buffer), 1, defaultData);
+            fclose(defaultData);
+        }
+        strcat(maxScore, "0");
+        strcat(averageScore, "0");
+        strcat(roundNumber, "0");
+        InitText(&maxScoreText, "../fonts/arialbd.ttf", 60, maxScore, &BLACK);
+        InitText(&averageScoreText, "../fonts/arialbd.ttf", 60, averageScore, &BLACK);
+        InitText(&roundNumberText, "../fonts/arialbd.ttf", 60, roundNumber, &BLACK);
+        cJSON_Delete(root);
+    } else {
+        fseek(test, 0, SEEK_END);
+        int fileSize = ftell(test);
+        rewind(test);
+        char *str = cJSON_malloc(fileSize * sizeof(*str));
+        memset(str, 0, fileSize);
+        fread(str, sizeof(*str), fileSize, test);
+        cJSON *root = cJSON_Parse(str);
+        const cJSON *node1 = cJSON_GetObjectItem(root, "Max Score");
+        strcat(maxScore, node1 == NULL ? "0" : node1->valuestring);
+        InitText(&maxScoreText, "../fonts/arialbd.ttf", 60, maxScore, &BLACK);
+        const cJSON *node2 = cJSON_GetObjectItem(root, "Average Score");
+        strcat(averageScore, node2 == NULL ? "0" : node2->valuestring);
+        InitText(&averageScoreText, "../fonts/arialbd.ttf", 60, averageScore, &BLACK);
+        const cJSON *node3 = cJSON_GetObjectItem(root, "Round Number");
+        strcat(roundNumber, node3 == NULL ? "0" : node3->valuestring);
+        InitText(&roundNumberText, "../fonts/arialbd.ttf", 60, roundNumber, &BLACK);
+        cJSON_Delete(root);
+        fclose(test);
+    }
+    
+    SDL_Event event;
+    while (!app.keyboard[SDL_SCANCODE_ESCAPE] && SDL_WaitEvent(&event)) {
+        DoEvent(event);
+        if (app.keyboard[SDL_SCANCODE_BACKSPACE]) {
+            break;
+        }
+        DisplayImage(&background, 0, 0, 0);
+        DisplayText(&maxScoreText, DATA_X, DATA_Y);
+        DisplayText(&averageScoreText, DATA_X, DATA_Y + GAP_Y);
+        DisplayText(&roundNumberText, DATA_X, DATA_Y + GAP_Y * 2);
+        DoFps();
+    }
+    QuitText(&maxScoreText);
+    QuitText(&averageScoreText);
+    QuitText(&roundNumberText);
+    QuitImage(&background);
 }

@@ -1,4 +1,3 @@
-add_executable(cJSON cJSON.c)
 add_executable(Parkour
         main.c
         menu.c
@@ -6,4 +5,5 @@ add_executable(Parkour
         utils/input.c
         utils/display.c
         game.c
+        cJSON.c
 )

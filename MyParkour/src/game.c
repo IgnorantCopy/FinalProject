@@ -21,11 +21,15 @@ static Item ups[NUM_OF_ITEMS];
 static Item downs[NUM_OF_ITEMS];
 static Item changes[NUM_OF_ITEMS];
 static Item money[NUM_OF_MONEY_MAX];
+static Item defence;
+static Item pile;
 
 static bool isPause;
 static bool isOver;
 static bool isUp;
 static bool isDown;
+static bool isExist;
+static bool isDefensive;
 static int upsIndex;
 static int downsIndex;
 static int changesIndex;
@@ -54,6 +58,8 @@ int DoGameLogic() {
     isOver = false;
     isUp = false;
     isDown = false;
+    isExist = false;
+    isDefensive = false;
     upsIndex = 0;
     downsIndex = 0;
     changesIndex = 0;
@@ -97,6 +103,13 @@ int DoGameLogic() {
     InitImage(&changeImage, "../image/change.png", 1);
     InitImage(&moneyImage, "../image/money.png", 1);
     
+    Image defenceImage;
+    Image pileImage;
+    Image defensive;
+    InitImage(&defenceImage, "../image/defence.png", 1);
+    InitImage(&pileImage, "../image/pile.png", 1);
+    InitImage(&defensive, "../image/defensive.png", 1);
+    
     Text scoreText;
     int scoreTextY = backgroundY + SCORE_Y;
     InitText(&scoreText, "../fonts/arialbi.ttf", 70, "Score: 0", &BLACK);
@@ -117,10 +130,10 @@ int DoGameLogic() {
     }
     
     srand(time(NULL));
-    InitItems(&upImage, &downImage, &changeImage, &moneyImage);
+    InitItems(&upImage, &downImage, &changeImage, &moneyImage, &defenceImage, &pileImage);
     while (!app.keyboard[SDL_SCANCODE_ESCAPE] && flag == 1) {
         SDL_Event event;
-        bonus = score / 1000;
+        bonus = bonus > 10 ? 10 : score / 1000;
         UpdateScoreText(&scoreText);
         while (SDL_PollEvent(&event)) {
             DoEvent(event);
@@ -234,10 +247,16 @@ int DoGameLogic() {
                 }
             }
             UpdateCharacter(character, characterW, characterH);
+            if (isDefensive) {
+                DisplayImage(&defensive, characterX + (characterW - defensive.rect.w) / 2, characterY, 1);
+            }
             DisplayImage(&character[characterIndex / 10], characterX, characterY, 1);
             
             if (DrawMoney(&moneyImage)) {
                 Mix_PlayChannel(-1, getScore, 0);
+            }
+            if (score >= 2000 && DrawProp(&defenceImage, &pileImage)) {
+                Mix_PlayChannel(-1, getScore, 2);
             }
             if (DrawItems(&upImage, &downImage, &changeImage)) {
                 Mix_PlayChannel(-1, peng, 0);
@@ -256,6 +275,9 @@ int DoGameLogic() {
     Mix_FreeChunk(peng);
     Mix_FreeChunk(getScore);
     Mix_FreeMusic(bgm);
+    QuitImage(&defensive);
+    QuitImage(&pileImage);
+    QuitImage(&defenceImage);
     QuitImage(&upImage);
     QuitImage(&downImage);
     QuitImage(&changeImage);
@@ -271,7 +293,7 @@ int DoGameLogic() {
     return app.keyboard[SDL_SCANCODE_ESCAPE] ? 0 : flag;
 }
 
-static void InitItems(const Image *upImage, const Image *downImage, const Image *changeImage, const Image *moneyImage) {
+static void InitItems(const Image *upImage, const Image *downImage, const Image *changeImage, const Image *moneyImage, const Image *defenceImage, const Image *pileImage) {
     for (int i = 0; i < NUM_OF_ITEMS; i++) {
         ups[i].isActive = false;
         ups[i].y = -upImage->rect.h;
@@ -282,33 +304,51 @@ static void InitItems(const Image *upImage, const Image *downImage, const Image 
         money[i].isActive = false;
         money[i].y = -moneyImage->rect.h;
     }
+    defence.isActive = false;
+    defence.y = -defenceImage->rect.h;
+    pile.isActive = false;
+    pile.y = -pileImage->rect.h;
 }
 
 static int DrawItems(Image *upImage, Image *downImage, Image *changeImage) {
-    int moveRandom = rand() % 400000;
-    int wayRandom = rand() % 300000;
+    int moveRandom = rand() % 3;
+    int wayRandom = rand() % 3;
     int itemRandom = rand() % 50;
     int flag = 0;
-    
+    int isDanger = 0;
     if (itemRandom == 20) {
-        switch (moveRandom / 10000) {
+        switch (moveRandom) {
             case 0:
-                ups[upsIndex].isActive = true;
-                ups[upsIndex].wayIndex = wayRandom / 10000 - 1;
-                ups[upsIndex].x = (WINDOW_WIDTH - upImage->rect.w) / 2 + ups[upsIndex].wayIndex * GAP_X;
-                upImage->rect.y = -upImage->rect.h;
-                upsIndex = (upsIndex + 1) % NUM_OF_ITEMS;
+                ups[upsIndex].wayIndex = wayRandom - 1;
+                for (int i = 0; i < NUM_OF_ITEMS; i++) {
+                    if (downs[i].isActive && downs[i].wayIndex == ups[upsIndex].wayIndex) {
+                        isDanger = 1;
+                        break;
+                    }
+                }
+                if (!isDanger) {
+                    ups[upsIndex].isActive = true;
+                    ups[upsIndex].x = (WINDOW_WIDTH - upImage->rect.w) / 2 + ups[upsIndex].wayIndex * GAP_X;
+                    upImage->rect.y = -upImage->rect.h;
+                    upsIndex = (upsIndex + 1) % NUM_OF_ITEMS;
+                }
                 break;
             case 1:
-                downs[downsIndex].isActive = true;
-                downs[downsIndex].wayIndex = wayRandom / 10000 - 1;
-                downs[downsIndex].x = (WINDOW_WIDTH - downImage->rect.w) / 2 + downs[downsIndex].wayIndex * GAP_X;
-                downImage->rect.y = -downImage->rect.h;
-                downsIndex = (downsIndex + 1) % NUM_OF_ITEMS;
+                downs[downsIndex].wayIndex = wayRandom - 1;
+                for (int i = 0; i < NUM_OF_ITEMS; i++) {
+                    if (ups[i].isActive && ups[i].wayIndex == downs[downsIndex].wayIndex) {
+                        isDanger = 1;
+                    }
+                }
+                if (!isDanger) {
+                    downs[downsIndex].isActive = true;
+                    downs[downsIndex].x = (WINDOW_WIDTH - downImage->rect.w) / 2 + downs[downsIndex].wayIndex * GAP_X;
+                    downImage->rect.y = -downImage->rect.h;
+                    downsIndex = (downsIndex + 1) % NUM_OF_ITEMS;
+                }
                 break;
             case 2:
-            case 3:
-                changes[changesIndex].wayIndex = wayRandom / 10000 - 1;
+                changes[changesIndex].wayIndex = wayRandom - 1;
                 int temp = changes[changesIndex].wayIndex;
                 int left = 0;
                 int middle = 0;
@@ -345,8 +385,14 @@ static int DrawItems(Image *upImage, Image *downImage, Image *changeImage) {
         if (ups[i].isActive) {
             DisplayImage(upImage, ups[i].x, ups[i].y, 1);
             ups[i].y += speed + bonus;
-            if (ups[i].wayIndex == wayIndex && ups[i].y + upImage->rect.h >= CHARACTER_Y && ups[i].y <= CHARACTER_Y + DELTA && !isUp) {
-                isOver = true;
+            if (ups[i].wayIndex == wayIndex && ups[i].y + upImage->rect.h >= CHARACTER_Y && ups[i].y <= CHARACTER_Y + DELTA + bonus && !isUp) {
+                if (!isDefensive) {
+                    isOver = true;
+                } else {
+                    isDefensive = false;
+                    ups[i].isActive = false;
+                    ups[i].y = -upImage->rect.h;
+                }
                 flag = 1;
             }
             if (ups[i].y >= WINDOW_HEIGHT + upImage->rect.h) {
@@ -357,8 +403,14 @@ static int DrawItems(Image *upImage, Image *downImage, Image *changeImage) {
         if (downs[i].isActive) {
             DisplayImage(downImage, downs[i].x, downs[i].y, 1);
             downs[i].y += speed + bonus;
-            if (downs[i].wayIndex == wayIndex && downs[i].y + downImage->rect.h >= CHARACTER_Y && downs[i].y <= CHARACTER_Y + DELTA && !isDown) {
-                isOver = true;
+            if (downs[i].wayIndex == wayIndex && downs[i].y + downImage->rect.h >= CHARACTER_Y && downs[i].y <= CHARACTER_Y + DELTA + bonus && !isDown) {
+                if (!isDefensive) {
+                    isOver = true;
+                } else {
+                    isDefensive = false;
+                    downs[i].isActive = false;
+                    downs[i].y = -downImage->rect.h;
+                }
                 flag = 1;
             }
             if (downs[i].y >= WINDOW_HEIGHT + downImage->rect.h) {
@@ -369,12 +421,18 @@ static int DrawItems(Image *upImage, Image *downImage, Image *changeImage) {
         if (changes[i].isActive) {
             DisplayImage(changeImage, changes[i].x, changes[i].y, 1);
             changes[i].y += speed + bonus;
-            if (changes[i].wayIndex == wayIndex && changes[i].y + changeImage->rect.h >= CHARACTER_Y && changes[i].y <= CHARACTER_Y + DELTA) {
-                isOver = true;
+            if (changes[i].wayIndex == wayIndex && changes[i].y + changeImage->rect.h >= CHARACTER_Y && changes[i].y <= CHARACTER_Y + DELTA + bonus) {
+                if (!isDefensive) {
+                    isOver = true;
+                } else {
+                    changes[i].isActive = false;
+                    changes[i].y = -changeImage->rect.h;
+                }
                 flag = 1;
             }
             if (changes[i].y >= WINDOW_HEIGHT + changeImage->rect.h) {
                 changes[i].isActive = false;
+                changes[i].y = -changeImage->rect.h;
             }
         }
     }
@@ -382,12 +440,12 @@ static int DrawItems(Image *upImage, Image *downImage, Image *changeImage) {
 }
 
 static int DrawMoney(Image *moneyImage) {
-    int wayRandom = rand() % 300000;
+    int wayRandom = rand() % 3;
     int moneyRandom = rand() % 20;
     int flag = 0;
     if (moneyRandom == 3) {
         money[moneyIndex].isActive = true;
-        money[moneyIndex].wayIndex = wayRandom / 10000 - 1;
+        money[moneyIndex].wayIndex = wayRandom - 1;
         money[moneyIndex].x = (WINDOW_WIDTH - moneyImage->rect.w) / 2 + money[moneyIndex].wayIndex * GAP_X;
         money[moneyIndex].y = -moneyImage->rect.h;
         moneyIndex = (moneyIndex + 1) % NUM_OF_MONEY_MAX;
@@ -396,13 +454,67 @@ static int DrawMoney(Image *moneyImage) {
         if (money[i].isActive) {
             DisplayImage(moneyImage, money[i].x, money[i].y, 1);
             money[i].y += speed + bonus;
-            if (money[i].wayIndex == wayIndex && money[i].y + moneyImage->rect.h >= CHARACTER_Y && money[i].y <= CHARACTER_Y + DELTA) {
+            if (money[i].wayIndex == wayIndex && money[i].y + moneyImage->rect.h >= CHARACTER_Y && money[i].y <= CHARACTER_Y + DELTA + bonus) {
                 money[i].isActive = false;
-                score += 100;
+                score += 50;
                 flag = 1;
             }
             if (money[i].y >= WINDOW_HEIGHT + moneyImage->rect.h) {
                 money[i].isActive = false;
+            }
+        }
+    }
+    return flag;
+}
+
+static int DrawProp(Image *defenceImage, Image *pileImage) {
+    int wayRandom = rand() % 3;
+    int propRandom = rand() % 500;
+    int clazz = rand() % 2;
+    int flag = 0;
+    if (propRandom == 10 && !isExist) {
+        switch (clazz) {
+            case 0:
+                defence.isActive = true;
+                defence.wayIndex = wayRandom - 1;
+                defence.x = (WINDOW_WIDTH - defenceImage->rect.w) / 2 + GAP_X * defence.wayIndex;
+                defence.y = -defenceImage->rect.h;
+                break;
+            case 1:
+                pile.isActive = true;
+                pile.wayIndex = wayRandom - 1;
+                pile.x = (WINDOW_WIDTH - pileImage->rect.w) / 2 + GAP_X * pile.wayIndex;
+                pile.y = -pileImage->rect.h;
+                break;
+            default:
+                break;
+        }
+        isExist = true;
+    } else if (isExist) {
+        if (defence.isActive) {
+            DisplayImage(defenceImage, defence.x, defence.y, 1);
+            defence.y += speed + bonus;
+            if (defence.wayIndex == wayIndex && defence.y + defenceImage->rect.h >= CHARACTER_Y && pile.y <= CHARACTER_Y + DELTA + bonus) {
+                isDefensive = true;
+                defence.isActive = false;
+                isExist = false;
+            }
+            if (defence.y >= WINDOW_HEIGHT + defenceImage->rect.h) {
+                defence.isActive = false;
+                isExist = false;
+            }
+        } else if (pile.isActive) {
+            DisplayImage(pileImage, pile.x, pile.y, 1);
+            pile.y += speed + bonus;
+            if (pile.wayIndex == wayIndex && pile.y + pileImage->rect.h >= CHARACTER_Y && pile.y <= CHARACTER_Y + DELTA + bonus) {
+                score += 500;
+                flag = 1;
+                pile.isActive = false;
+                isExist = false;
+            }
+            if (pile.y >= WINDOW_HEIGHT + pileImage->rect.h) {
+                pile.isActive = false;
+                isExist = false;
             }
         }
     }
@@ -451,6 +563,8 @@ static int DrawPause() {
 static int DrawOver(Image *background, Text *scoreText, Image *character, int characterX, int characterY) {
     Image over;
     InitImage(&over, "../image/over.png", 1);
+    Image newHighScore;
+    InitImage(&newHighScore, "../image/newHighScore.png", 1);
     
     Action overActions[] = {ActionRestart, ActionMainMenu};
     char *overContents[] = {
@@ -471,9 +585,69 @@ static int DrawOver(Image *background, Text *scoreText, Image *character, int ch
     SDL_Event event;
     int flag = 0;
     
-    UpdateOver(choices, &over, &arrow, background, scoreText, character, characterX, characterY);
+    bool isNewHigh = false;
+    int maxScore = 0;
+    int averageScore = 0;
+    int roundNumber = 0;
+    FILE *file1 = fopen("../data/data.json", "r");
+    if (file1 == NULL) {
+        isNewHigh = true;
+        maxScore = score;
+        averageScore = score;
+        roundNumber++;
+    } else {
+        fseek(file1, 0, SEEK_END);
+        int fileSize = ftell(file1);
+        rewind(file1);
+        char *str = cJSON_malloc(fileSize * sizeof(*str));
+        memset(str, 0, fileSize);
+        fread(str, sizeof(*str), fileSize, file1);
+        cJSON *root = cJSON_Parse(str);
+        const cJSON *node1 = cJSON_GetObjectItem(root, "Max Score");
+        const cJSON *node2 = cJSON_GetObjectItem(root, "Average Score");
+        const cJSON *node3 = cJSON_GetObjectItem(root, "Round Number");
+        maxScore = atoi(node1->valuestring);
+        averageScore = atoi(node2->valuestring);
+        roundNumber = atoi(node3->valuestring);
+        if (maxScore <= score) {
+            maxScore = score;
+            isNewHigh = true;
+        }
+        averageScore = (int)(((double)roundNumber / (roundNumber + 1)) * averageScore + (double)score / (roundNumber + 1));
+        roundNumber++;
+        cJSON_Delete(root);
+        fclose(file1);
+    }
+    
+    FILE *file2 = fopen("../data/data.json", "w");
+    if (file2 != NULL) {
+        cJSON *root = cJSON_CreateObject();
+        char max[100] = {0};
+        char average[100] = {0};
+        char round[100] = {0};
+        itoa(maxScore, max, 10);
+        itoa(averageScore, average, 10);
+        itoa(roundNumber, round, 10);
+        cJSON_AddStringToObject(root, "Max Score", max);
+        cJSON_AddStringToObject(root, "Average Score", average);
+        cJSON_AddStringToObject(root, "Round Number", round);
+        const char *buffer = cJSON_Print(root);
+        fwrite(buffer, strlen(buffer), 1, file2);
+        cJSON_Delete(root);
+        fclose(file2);
+    }
+    
+    Mix_Chunk *applause;
+    if (!(applause = Mix_LoadWAV("../audio/applause.MP3"))) {
+        HANDLE_ERROR("InitSound applause");
+    }
+    if (isNewHigh) {
+        Mix_PlayChannel(-1, applause, 0);
+    }
+    
+    UpdateOver(choices, &over, &arrow, background, scoreText, character, characterX, characterY, &newHighScore, isNewHigh);
     while (!app.keyboard[SDL_SCANCODE_ESCAPE] && SDL_WaitEvent(&event) && flag == 0) {
-        UpdateOver(choices, &over, &arrow, background, scoreText, character, characterX, characterY);
+        UpdateOver(choices, &over, &arrow, background, scoreText, character, characterX, characterY, &newHighScore, isNewHigh);
         DoEvent(event);
         flag = DoOverWidgets();
     }
@@ -481,7 +655,9 @@ static int DrawOver(Image *background, Text *scoreText, Image *character, int ch
     for (int i = 0; i < NUM_OF_OVER_WIDGETS; i++) {
         QuitText(&choices[i]);
     }
+    Mix_FreeChunk(applause);
     QuitWidgets(overWidgets);
+    QuitImage(&newHighScore);
     QuitImage(&over);
     return app.keyboard[SDL_SCANCODE_ESCAPE] ? 0 : flag;
 }
@@ -512,7 +688,7 @@ static void UpdatePause(Text *choices, Image *pause, Image *arrow) {
     DoFps();
 }
 
-static void UpdateOver(Text *choices, Image *over, Image *arrow, Image *background, Text *scoreText, Image *character, int characterX, int characterY) {
+static void UpdateOver(Text *choices, Image *over, Image *arrow, Image *background, Text *scoreText, Image *character, int characterX, int characterY, Image *newHighScore, bool flag) {
     UpdateOverChoices(choices);
     UpdateOverArrow(arrow, choices[0]);
     DisplayImage(background, 0, 0, 0);
@@ -520,6 +696,9 @@ static void UpdateOver(Text *choices, Image *over, Image *arrow, Image *backgrou
     DisplayImage(character, characterX, characterY, 1);
     DisplayImage(over, (WINDOW_WIDTH - over->rect.w) / 2, (WINDOW_HEIGHT - over->rect.h) / 3, 1);
     DisplayImage(arrow, arrow->rect.x, arrow->rect.y, 1);
+    if (flag) {
+        DisplayImage(newHighScore, NEW_HIGH_SCORE_X, NEW_HIGH_SCORE_Y, 1);
+    }
     for (int i = 0; i < NUM_OF_OVER_WIDGETS; i++) {
         DisplayText(&choices[i], overWidgets[i].x, overWidgets[i].y);
     }

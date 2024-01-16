@@ -1,10 +1,15 @@
 
-sc:S5276w"Yimplicit conversion loses integer precision: 'time_t' (aka 'long long') to 'unsigned int'(•ÛºÅ8–ğªĞ1
-oc:S3776&"URefactor this function to reduce its Cognitive Complexity from 116 to the 25 allowed.(„ğÁë8½ğªĞ1
-lc:S134À"MRefactor this code to not nest more than 3 if|for|do|while|switch statements.(äÒš•ùÿÿÿÿ8½ğªĞ1
-gc:S134Å"MRefactor this code to not nest more than 3 if|for|do|while|switch statements.(”»¼ğ8½ğªĞ1
-lc:S134Ê"MRefactor this code to not nest more than 3 if|for|do|while|switch statements.(±Øš„ÿÿÿÿÿ8½ğªĞ1
-gc:S134Û"MRefactor this code to not nest more than 3 if|for|do|while|switch statements.(í±±8½ğªĞ1
-tc:S3776Ÿ"TRefactor this function to reduce its Cognitive Complexity from 45 to the 25 allowed.(˜¶ÇÓıÿÿÿÿ8ÎğªĞ1
-gc:S134½"MRefactor this code to not nest more than 3 if|for|do|while|switch statements.(„Éã“8ÎğªĞ1
-fc:S107ƒ"GThis function has 8 parameters, which is greater than the 7 authorized.(îëõ½úÿÿÿÿ8Á£¸ğÏ1
+tc:S5276„"Yimplicit conversion loses integer precision: 'time_t' (aka 'long long') to 'unsigned int'(•ÛºÅ8ÔãĞ1
+oc:S3776*"URefactor this function to reduce its Cognitive Complexity from 125 to the 25 allowed.(„ğÁë8½ğªĞ1
+lc:S134Í"MRefactor this code to not nest more than 3 if|for|do|while|switch statements.(äÒš•ùÿÿÿÿ8½ğªĞ1
+gc:S134Ò"MRefactor this code to not nest more than 3 if|for|do|while|switch statements.(”»¼ğ8½ğªĞ1
+lc:S134×"MRefactor this code to not nest more than 3 if|for|do|while|switch statements.(±Øš„ÿÿÿÿÿ8½ğªĞ1
+gc:S134è"MRefactor this code to not nest more than 3 if|for|do|while|switch statements.(í±±8½ğªĞ1
+tc:S3776¹"TRefactor this function to reduce its Cognitive Complexity from 82 to the 25 allowed.(˜¶ÇÓıÿÿÿÿ8ÎğªĞ1
+gc:S134Ä"MRefactor this code to not nest more than 3 if|for|do|while|switch statements.(àûáá8—ƒòãĞ1
+gc:S134Ó"MRefactor this code to not nest more than 3 if|for|do|while|switch statements.(Åòâ8ÌŸóãĞ1
+gc:S134å"MRefactor this code to not nest more than 3 if|for|do|while|switch statements.(„Éã“8ÎğªĞ1
+lc:S134…"MRefactor this code to not nest more than 3 if|for|do|while|switch statements.(ùÍšûùÿÿÿÿ8ºÏäĞ1
+lc:S134—"MRefactor this code to not nest more than 3 if|for|do|while|switch statements.(ùÍšûùÿÿÿÿ8¥ô‘çĞ1
+lc:S134©"MRefactor this code to not nest more than 3 if|for|do|while|switch statements.(ùÍšûùÿÿÿÿ8¨àšçĞ1
+bc:S107³"HThis function has 10 parameters, which is greater than the 7 authorized.(­˜æº8“õãĞ1

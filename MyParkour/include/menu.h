@@ -12,6 +12,8 @@
 #define WIDGET_X 375
 #define WIDGET_Y 500
 #define GAP_Y 100
+#define DATA_X 100
+#define DATA_Y 100
 
 void StartUp();
 static int DrawStart(Image *background, Text *title, Image *bars);
