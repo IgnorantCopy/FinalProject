@@ -23,7 +23,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
-#include "../include/cJSON.h"
+#include "utils/cJSON.h"
 
 /* Used by some code below as an example datatype. */
 struct record

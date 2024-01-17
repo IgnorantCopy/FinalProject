@@ -112,12 +112,12 @@ build MyParkour/test/CMakeFiles/test.dir/test.c.obj: C_COMPILER__test_unscanned_
   OBJECT_DIR = MyParkour\test\CMakeFiles\test.dir
   OBJECT_FILE_DIR = MyParkour\test\CMakeFiles\test.dir
 
-build MyParkour/test/CMakeFiles/test.dir/__/src/cJSON.c.obj: C_COMPILER__test_unscanned_Debug D$:/codes/FinalProject/MyParkour/src/cJSON.c || cmake_object_order_depends_target_test
-  DEP_FILE = MyParkour\test\CMakeFiles\test.dir\__\src\cJSON.c.obj.d
+build MyParkour/test/CMakeFiles/test.dir/__/src/utils/cJSON.c.obj: C_COMPILER__test_unscanned_Debug D$:/codes/FinalProject/MyParkour/src/utils/cJSON.c || cmake_object_order_depends_target_test
+  DEP_FILE = MyParkour\test\CMakeFiles\test.dir\__\src\utils\cJSON.c.obj.d
   FLAGS = -g -std=gnu11 -fdiagnostics-color=always
   INCLUDES = -ID:/codes/FinalProject/../../Import/mingw(CLion+VSC)/SDL2-2.26.0-allinone/x86_64-w64-mingw32/include -ID:/codes/FinalProject/MyParkour/include
   OBJECT_DIR = MyParkour\test\CMakeFiles\test.dir
-  OBJECT_FILE_DIR = MyParkour\test\CMakeFiles\test.dir\__\src
+  OBJECT_FILE_DIR = MyParkour\test\CMakeFiles\test.dir\__\src\utils
 
 
 # =============================================================================
@@ -127,7 +127,7 @@ build MyParkour/test/CMakeFiles/test.dir/__/src/cJSON.c.obj: C_COMPILER__test_un
 #############################################
 # Link the executable MyParkour\test\test.exe
 
-build MyParkour/test/test.exe: C_EXECUTABLE_LINKER__test_Debug MyParkour/test/CMakeFiles/test.dir/test.c.obj MyParkour/test/CMakeFiles/test.dir/__/src/cJSON.c.obj
+build MyParkour/test/test.exe: C_EXECUTABLE_LINKER__test_Debug MyParkour/test/CMakeFiles/test.dir/test.c.obj MyParkour/test/CMakeFiles/test.dir/__/src/utils/cJSON.c.obj
   FLAGS = -g
   LINK_LIBRARIES = -lkernel32 -luser32 -lgdi32 -lwinspool -lshell32 -lole32 -loleaut32 -luuid -lcomdlg32 -ladvapi32
   LINK_PATH = -LD:/codes/FinalProject/../../Import/mingw(CLion+VSC)/SDL2-2.26.0-allinone/x86_64-w64-mingw32/bin
@@ -154,12 +154,12 @@ build MyParkour/test/CMakeFiles/MyCJsonTest.dir/MyCJsonTest.c.obj: C_COMPILER__M
   OBJECT_DIR = MyParkour\test\CMakeFiles\MyCJsonTest.dir
   OBJECT_FILE_DIR = MyParkour\test\CMakeFiles\MyCJsonTest.dir
 
-build MyParkour/test/CMakeFiles/MyCJsonTest.dir/__/src/cJSON.c.obj: C_COMPILER__MyCJsonTest_unscanned_Debug D$:/codes/FinalProject/MyParkour/src/cJSON.c || cmake_object_order_depends_target_MyCJsonTest
-  DEP_FILE = MyParkour\test\CMakeFiles\MyCJsonTest.dir\__\src\cJSON.c.obj.d
+build MyParkour/test/CMakeFiles/MyCJsonTest.dir/__/src/utils/cJSON.c.obj: C_COMPILER__MyCJsonTest_unscanned_Debug D$:/codes/FinalProject/MyParkour/src/utils/cJSON.c || cmake_object_order_depends_target_MyCJsonTest
+  DEP_FILE = MyParkour\test\CMakeFiles\MyCJsonTest.dir\__\src\utils\cJSON.c.obj.d
   FLAGS = -g -std=gnu11 -fdiagnostics-color=always
   INCLUDES = -ID:/codes/FinalProject/../../Import/mingw(CLion+VSC)/SDL2-2.26.0-allinone/x86_64-w64-mingw32/include -ID:/codes/FinalProject/MyParkour/include
   OBJECT_DIR = MyParkour\test\CMakeFiles\MyCJsonTest.dir
-  OBJECT_FILE_DIR = MyParkour\test\CMakeFiles\MyCJsonTest.dir\__\src
+  OBJECT_FILE_DIR = MyParkour\test\CMakeFiles\MyCJsonTest.dir\__\src\utils
 
 
 # =============================================================================
@@ -169,7 +169,7 @@ build MyParkour/test/CMakeFiles/MyCJsonTest.dir/__/src/cJSON.c.obj: C_COMPILER__
 #############################################
 # Link the executable MyParkour\test\MyCJsonTest.exe
 
-build MyParkour/test/MyCJsonTest.exe: C_EXECUTABLE_LINKER__MyCJsonTest_Debug MyParkour/test/CMakeFiles/MyCJsonTest.dir/MyCJsonTest.c.obj MyParkour/test/CMakeFiles/MyCJsonTest.dir/__/src/cJSON.c.obj
+build MyParkour/test/MyCJsonTest.exe: C_EXECUTABLE_LINKER__MyCJsonTest_Debug MyParkour/test/CMakeFiles/MyCJsonTest.dir/MyCJsonTest.c.obj MyParkour/test/CMakeFiles/MyCJsonTest.dir/__/src/utils/cJSON.c.obj
   FLAGS = -g
   LINK_LIBRARIES = -lkernel32 -luser32 -lgdi32 -lwinspool -lshell32 -lole32 -loleaut32 -luuid -lcomdlg32 -ladvapi32
   LINK_PATH = -LD:/codes/FinalProject/../../Import/mingw(CLion+VSC)/SDL2-2.26.0-allinone/x86_64-w64-mingw32/bin
@@ -294,12 +294,12 @@ build MyParkour/src/CMakeFiles/Parkour.dir/game.c.obj: C_COMPILER__Parkour_unsca
   OBJECT_DIR = MyParkour\src\CMakeFiles\Parkour.dir
   OBJECT_FILE_DIR = MyParkour\src\CMakeFiles\Parkour.dir
 
-build MyParkour/src/CMakeFiles/Parkour.dir/cJSON.c.obj: C_COMPILER__Parkour_unscanned_Debug D$:/codes/FinalProject/MyParkour/src/cJSON.c || cmake_object_order_depends_target_Parkour
-  DEP_FILE = MyParkour\src\CMakeFiles\Parkour.dir\cJSON.c.obj.d
+build MyParkour/src/CMakeFiles/Parkour.dir/utils/cJSON.c.obj: C_COMPILER__Parkour_unscanned_Debug D$:/codes/FinalProject/MyParkour/src/utils/cJSON.c || cmake_object_order_depends_target_Parkour
+  DEP_FILE = MyParkour\src\CMakeFiles\Parkour.dir\utils\cJSON.c.obj.d
   FLAGS = -g -std=gnu11 -fdiagnostics-color=always
   INCLUDES = -ID:/codes/FinalProject/../../Import/mingw(CLion+VSC)/SDL2-2.26.0-allinone/x86_64-w64-mingw32/include -ID:/codes/FinalProject/MyParkour/include
   OBJECT_DIR = MyParkour\src\CMakeFiles\Parkour.dir
-  OBJECT_FILE_DIR = MyParkour\src\CMakeFiles\Parkour.dir
+  OBJECT_FILE_DIR = MyParkour\src\CMakeFiles\Parkour.dir\utils
 
 
 # =============================================================================
@@ -309,7 +309,7 @@ build MyParkour/src/CMakeFiles/Parkour.dir/cJSON.c.obj: C_COMPILER__Parkour_unsc
 #############################################
 # Link the executable MyParkour\src\Parkour.exe
 
-build MyParkour/src/Parkour.exe: C_EXECUTABLE_LINKER__Parkour_Debug MyParkour/src/CMakeFiles/Parkour.dir/main.c.obj MyParkour/src/CMakeFiles/Parkour.dir/menu.c.obj MyParkour/src/CMakeFiles/Parkour.dir/utils/widget.c.obj MyParkour/src/CMakeFiles/Parkour.dir/utils/input.c.obj MyParkour/src/CMakeFiles/Parkour.dir/utils/display.c.obj MyParkour/src/CMakeFiles/Parkour.dir/game.c.obj MyParkour/src/CMakeFiles/Parkour.dir/cJSON.c.obj
+build MyParkour/src/Parkour.exe: C_EXECUTABLE_LINKER__Parkour_Debug MyParkour/src/CMakeFiles/Parkour.dir/main.c.obj MyParkour/src/CMakeFiles/Parkour.dir/menu.c.obj MyParkour/src/CMakeFiles/Parkour.dir/utils/widget.c.obj MyParkour/src/CMakeFiles/Parkour.dir/utils/input.c.obj MyParkour/src/CMakeFiles/Parkour.dir/utils/display.c.obj MyParkour/src/CMakeFiles/Parkour.dir/game.c.obj MyParkour/src/CMakeFiles/Parkour.dir/utils/cJSON.c.obj
   FLAGS = -g
   LINK_LIBRARIES = -lmingw32  -lSDL2main  -lSDL2  -lSDL2_image  -lSDL2_mixer  -lSDL2_ttf  -lkernel32 -luser32 -lgdi32 -lwinspool -lshell32 -lole32 -loleaut32 -luuid -lcomdlg32 -ladvapi32
   LINK_PATH = -LD:/codes/FinalProject/../../Import/mingw(CLion+VSC)/SDL2-2.26.0-allinone/x86_64-w64-mingw32/bin

@@ -35,6 +35,13 @@ typedef struct Item {
 
 int DoGameLogic();
 
+static void InitUps(Image *upImage);
+static void InitDowns(Image *downImage);
+static void InitChanges(Image *changeImage);
+static int DrawUps(Image *upImage);
+static int DrawDowns(Image *downImage);
+static int DrawChanges(Image *changeImage);
+
 static void InitItems(const Image *upImage, const Image *downImage, const Image *changeImage, const Image *moneyImage, const Image *defenceImage, const Image *pileImage);
 static int DrawItems(Image *upImage, Image *downImage, Image *changeImage);
 static int DrawMoney(Image *moneyImage);
@@ -51,9 +58,6 @@ static void UpdatePauseChoices(Text *choices);
 static void UpdateOverChoices(Text *choices);
 static void UpdatePauseArrow(Image *arrow, Text choice);
 static void UpdateOverArrow(Image *arrow, Text choice);
-
-static int ActPauseWidget();
-static int ActOverWidget();
 
 static int DoPauseWidgets();
 static int DoOverWidgets();

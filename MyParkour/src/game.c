@@ -44,6 +44,16 @@ int DoGameLogic() {
     score = 0;
     speed = 5;
     bonus = 0;
+    upsIndex = 0;
+    downsIndex = 0;
+    changesIndex = 0;
+    moneyIndex = 0;
+    isPause = false;
+    isOver = false;
+    isUp = false;
+    isDown = false;
+    isExist = false;
+    isDefensive = false;
     int scoreCount = 0;
     int counter = 0;
     int flag = 1;
@@ -54,16 +64,6 @@ int DoGameLogic() {
     bool isRight = false;
     bool isMax = false;
     bool isMin = false;
-    isPause = false;
-    isOver = false;
-    isUp = false;
-    isDown = false;
-    isExist = false;
-    isDefensive = false;
-    upsIndex = 0;
-    downsIndex = 0;
-    changesIndex = 0;
-    moneyIndex = 0;
     
     Image background;
     int backgroundX = 0;
@@ -116,7 +116,7 @@ int DoGameLogic() {
     
     Mix_Music *bgm;
     if (!(bgm = Mix_LoadMUS("../audio/bgm.MP3"))) {
-        HANDLE_ERROR("InitAudio bgm0");
+        HANDLE_ERROR("InitAudio bgm");
     }
     Mix_PlayMusic(bgm, 100);
     
@@ -133,7 +133,7 @@ int DoGameLogic() {
     InitItems(&upImage, &downImage, &changeImage, &moneyImage, &defenceImage, &pileImage);
     while (!app.keyboard[SDL_SCANCODE_ESCAPE] && flag == 1) {
         SDL_Event event;
-        bonus = bonus > 10 ? 10 : score / 1000;
+        bonus = bonus > 7 ? 7 : score / 1000;
         UpdateScoreText(&scoreText);
         while (SDL_PollEvent(&event)) {
             DoEvent(event);
@@ -200,12 +200,12 @@ int DoGameLogic() {
             DisplayImage(&background, 0, 0, 0);
             DisplayText(&scoreText, SCORE_X, SCORE_Y);
             
-            if (characterX > target) {
+            if (characterX >= target + speed + bonus) {
                 characterX -= speed + bonus;
                 if (isRight) {
                     isRight = false;
                 }
-            } else if (characterX < target) {
+            } else if (characterX <= target - speed - bonus) {
                 characterX += speed + bonus;
                 if (isLeft) {
                     isLeft = false;
@@ -293,99 +293,80 @@ int DoGameLogic() {
     return app.keyboard[SDL_SCANCODE_ESCAPE] ? 0 : flag;
 }
 
-static void InitItems(const Image *upImage, const Image *downImage, const Image *changeImage, const Image *moneyImage, const Image *defenceImage, const Image *pileImage) {
+static void InitUps(Image *upImage) {
+    int wayRandom = rand() % 3;
+    int isDanger = 0;
+    ups[upsIndex].wayIndex = wayRandom - 1;
     for (int i = 0; i < NUM_OF_ITEMS; i++) {
-        ups[i].isActive = false;
-        ups[i].y = -upImage->rect.h;
-        downs[i].isActive = false;
-        downs[i].y = -downImage->rect.h;
-        changes[i].isActive = false;
-        changes[i].y = -changeImage->rect.h;
-        money[i].isActive = false;
-        money[i].y = -moneyImage->rect.h;
+        if (downs[i].isActive && downs[i].wayIndex == ups[upsIndex].wayIndex) {
+            isDanger = 1;
+            break;
+        }
     }
-    defence.isActive = false;
-    defence.y = -defenceImage->rect.h;
-    pile.isActive = false;
-    pile.y = -pileImage->rect.h;
+    if (!isDanger) {
+        ups[upsIndex].isActive = true;
+        ups[upsIndex].x = (WINDOW_WIDTH - upImage->rect.w) / 2 + ups[upsIndex].wayIndex * GAP_X;
+        upImage->rect.y = -upImage->rect.h;
+        upsIndex = (upsIndex + 1) % NUM_OF_ITEMS;
+    }
 }
 
-static int DrawItems(Image *upImage, Image *downImage, Image *changeImage) {
-    int moveRandom = rand() % 3;
+static void InitDowns(Image *downImage) {
     int wayRandom = rand() % 3;
-    int itemRandom = rand() % 50;
-    int flag = 0;
     int isDanger = 0;
-    if (itemRandom == 20) {
-        switch (moveRandom) {
+    downs[downsIndex].wayIndex = wayRandom - 1;
+    for (int i = 0; i < NUM_OF_ITEMS; i++) {
+        if (ups[i].isActive && ups[i].wayIndex == downs[downsIndex].wayIndex) {
+            isDanger = 1;
+        }
+    }
+    if (!isDanger) {
+        downs[downsIndex].isActive = true;
+        downs[downsIndex].x = (WINDOW_WIDTH - downImage->rect.w) / 2 + downs[downsIndex].wayIndex * GAP_X;
+        downImage->rect.y = -downImage->rect.h;
+        downsIndex = (downsIndex + 1) % NUM_OF_ITEMS;
+    }
+}
+
+static void InitChanges(Image *changeImage) {
+    int wayRandom = rand() % 3;
+    changes[changesIndex].wayIndex = wayRandom - 1;
+    int temp = changes[changesIndex].wayIndex;
+    int left = 0;
+    int middle = 0;
+    int right = 0;
+    for (int i = 0; i < NUM_OF_ITEMS; i++) {
+        switch (changes[i].wayIndex) {
+            case -1:
+                left++;
+                break;
             case 0:
-                ups[upsIndex].wayIndex = wayRandom - 1;
-                for (int i = 0; i < NUM_OF_ITEMS; i++) {
-                    if (downs[i].isActive && downs[i].wayIndex == ups[upsIndex].wayIndex) {
-                        isDanger = 1;
-                        break;
-                    }
-                }
-                if (!isDanger) {
-                    ups[upsIndex].isActive = true;
-                    ups[upsIndex].x = (WINDOW_WIDTH - upImage->rect.w) / 2 + ups[upsIndex].wayIndex * GAP_X;
-                    upImage->rect.y = -upImage->rect.h;
-                    upsIndex = (upsIndex + 1) % NUM_OF_ITEMS;
-                }
+                middle++;
                 break;
             case 1:
-                downs[downsIndex].wayIndex = wayRandom - 1;
-                for (int i = 0; i < NUM_OF_ITEMS; i++) {
-                    if (ups[i].isActive && ups[i].wayIndex == downs[downsIndex].wayIndex) {
-                        isDanger = 1;
-                    }
-                }
-                if (!isDanger) {
-                    downs[downsIndex].isActive = true;
-                    downs[downsIndex].x = (WINDOW_WIDTH - downImage->rect.w) / 2 + downs[downsIndex].wayIndex * GAP_X;
-                    downImage->rect.y = -downImage->rect.h;
-                    downsIndex = (downsIndex + 1) % NUM_OF_ITEMS;
-                }
-                break;
-            case 2:
-                changes[changesIndex].wayIndex = wayRandom - 1;
-                int temp = changes[changesIndex].wayIndex;
-                int left = 0;
-                int middle = 0;
-                int right = 0;
-                for (int i = 0; i < NUM_OF_ITEMS; i++) {
-                    switch (changes[i].wayIndex) {
-                        case -1:
-                            left++;
-                            break;
-                        case 0:
-                            middle++;
-                            break;
-                        case 1:
-                            right++;
-                            break;
-                        default:
-                            break;
-                    }
-                }
-                if ((temp == -1 && middle && right) || (temp == 0 && left && right) || (temp == 1 && left && middle)) {
-                    break;
-                }
-                changes[changesIndex].isActive = true;
-                changes[changesIndex].x = (WINDOW_WIDTH - changeImage->rect.w) / 2 + changes[changesIndex].wayIndex * GAP_X;
-                changeImage->rect.y = -changeImage->rect.h;
-                changesIndex = (changesIndex + 1) % NUM_OF_ITEMS;
+                right++;
                 break;
             default:
                 break;
         }
     }
-    
+    if ((temp == -1 && middle && right) || (temp == 0 && left && right) || (temp == 1 && left && middle)) {
+        return;
+    }
+    changes[changesIndex].isActive = true;
+    changes[changesIndex].x = (WINDOW_WIDTH - changeImage->rect.w) / 2 + changes[changesIndex].wayIndex * GAP_X;
+    changeImage->rect.y = -changeImage->rect.h;
+    changesIndex = (changesIndex + 1) % NUM_OF_ITEMS;
+}
+
+static int DrawUps(Image *upImage) {
+    int flag = 0;
     for (int i = 0; i < NUM_OF_ITEMS; i++) {
         if (ups[i].isActive) {
             DisplayImage(upImage, ups[i].x, ups[i].y, 1);
             ups[i].y += speed + bonus;
-            if (ups[i].wayIndex == wayIndex && ups[i].y + upImage->rect.h >= CHARACTER_Y && ups[i].y <= CHARACTER_Y + DELTA + bonus && !isUp) {
+            if (ups[i].wayIndex == wayIndex && ups[i].y + upImage->rect.h >= CHARACTER_Y &&
+                ups[i].y <= CHARACTER_Y + DELTA + bonus && !isUp) {
                 if (!isDefensive) {
                     isOver = true;
                 } else {
@@ -400,10 +381,18 @@ static int DrawItems(Image *upImage, Image *downImage, Image *changeImage) {
                 ups[i].y = -upImage->rect.h;
             }
         }
+    }
+    return flag;
+}
+
+static int DrawDowns(Image *downImage) {
+    int flag = 0;
+    for (int i = 0; i < NUM_OF_ITEMS; i++) {
         if (downs[i].isActive) {
             DisplayImage(downImage, downs[i].x, downs[i].y, 1);
             downs[i].y += speed + bonus;
-            if (downs[i].wayIndex == wayIndex && downs[i].y + downImage->rect.h >= CHARACTER_Y && downs[i].y <= CHARACTER_Y + DELTA + bonus && !isDown) {
+            if (downs[i].wayIndex == wayIndex && downs[i].y + downImage->rect.h >= CHARACTER_Y &&
+                downs[i].y <= CHARACTER_Y + DELTA + bonus && !isDown) {
                 if (!isDefensive) {
                     isOver = true;
                 } else {
@@ -418,13 +407,22 @@ static int DrawItems(Image *upImage, Image *downImage, Image *changeImage) {
                 downs[i].y = -downImage->rect.h;
             }
         }
+    }
+    return flag;
+}
+
+static int DrawChanges(Image *changeImage) {
+    int flag = 0;
+    for (int i = 0; i < NUM_OF_ITEMS; i++) {
         if (changes[i].isActive) {
             DisplayImage(changeImage, changes[i].x, changes[i].y, 1);
             changes[i].y += speed + bonus;
-            if (changes[i].wayIndex == wayIndex && changes[i].y + changeImage->rect.h >= CHARACTER_Y && changes[i].y <= CHARACTER_Y + DELTA + bonus) {
+            if (changes[i].wayIndex == wayIndex && changes[i].y + changeImage->rect.h >= CHARACTER_Y &&
+                changes[i].y <= CHARACTER_Y + DELTA + bonus) {
                 if (!isDefensive) {
                     isOver = true;
                 } else {
+                    isDefensive = false;
                     changes[i].isActive = false;
                     changes[i].y = -changeImage->rect.h;
                 }
@@ -439,9 +437,49 @@ static int DrawItems(Image *upImage, Image *downImage, Image *changeImage) {
     return flag;
 }
 
+static void InitItems(const Image *upImage, const Image *downImage, const Image *changeImage, const Image *moneyImage, const Image *defenceImage, const Image *pileImage) {
+    for (int i = 0; i < NUM_OF_ITEMS; i++) {
+        ups[i].isActive = false;
+        ups[i].y = -upImage->rect.h;
+        downs[i].isActive = false;
+        downs[i].y = -downImage->rect.h;
+        changes[i].isActive = false;
+        changes[i].y = -changeImage->rect.h;
+    }
+    for (int i = 0; i < NUM_OF_MONEY_MAX; i++) {
+        money[i].isActive = false;
+        money[i].y = -moneyImage->rect.h;
+    }
+    defence.isActive = false;
+    defence.y = -defenceImage->rect.h;
+    pile.isActive = false;
+    pile.y = -pileImage->rect.h;
+}
+
+static int DrawItems(Image *upImage, Image *downImage, Image *changeImage) {
+    int moveRandom = rand() % 3;
+    int itemRandom = rand() % (50 - bonus);
+    if (itemRandom == 20) {
+        switch (moveRandom) {
+            case 0:
+                InitUps(upImage);
+                break;
+            case 1:
+                InitDowns(downImage);
+                break;
+            case 2:
+                InitChanges(changeImage);
+                break;
+            default:
+                break;
+        }
+    }
+    return DrawUps(upImage) || DrawDowns(downImage) || DrawChanges(changeImage);
+}
+
 static int DrawMoney(Image *moneyImage) {
     int wayRandom = rand() % 3;
-    int moneyRandom = rand() % 20;
+    int moneyRandom = rand() % (20 - bonus);
     int flag = 0;
     if (moneyRandom == 3) {
         money[moneyIndex].isActive = true;
@@ -729,23 +767,14 @@ static void UpdateOverArrow(Image *arrow, Text choice) {
     arrow->rect.y = PAUSE_Y + (selectionOver + 1) * PAUSE_GAP + choice.rect.h / 2 - arrow->rect.h / 2;
 }
 
-static int ActPauseWidget() {
-    isPause = false;
-    return ActWidget(pauseWidgets, &selectionPause);
-}
-
-static int ActOverWidget() {
-    isOver = false;
-    return ActWidget(overWidgets, &selectionOver);
-}
-
 static int DoPauseWidgets() {
     if (app.keyboard[SDL_SCANCODE_UP]) {
         PrevWidget(&selectionPause, NUM_OF_WIDGETS);
     } else if (app.keyboard[SDL_SCANCODE_DOWN]) {
         NextWidget(&selectionPause, NUM_OF_WIDGETS);
     } else if (app.keyboard[SDL_SCANCODE_RETURN]) {
-        return ActPauseWidget();
+        isPause = false;
+        return ActWidget(pauseWidgets, &selectionPause);
     }
     return 0;
 }
@@ -756,7 +785,8 @@ static int DoOverWidgets() {
     } else if (app.keyboard[SDL_SCANCODE_DOWN]) {
         NextWidget(&selectionOver, NUM_OF_OVER_WIDGETS);
     } else if (app.keyboard[SDL_SCANCODE_RETURN]) {
-        return ActOverWidget();
+        isOver = false;
+        return ActWidget(overWidgets, &selectionOver);
     }
     return 0;
 }

@@ -5,5 +5,5 @@ add_executable(Parkour
         utils/input.c
         utils/display.c
         game.c
-        cJSON.c
+        utils/cJSON.c
 )

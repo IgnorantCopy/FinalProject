@@ -9,7 +9,7 @@
 #include "SDL2/SDL_image.h"
 #include "SDL2/SDL_ttf.h"
 #include "SDL2/SDL_mixer.h"
-#include "cJSON.h"
+#include "utils/cJSON.h"
 #include <stdio.h>
 #include <stdbool.h>
 #include <stdlib.h>

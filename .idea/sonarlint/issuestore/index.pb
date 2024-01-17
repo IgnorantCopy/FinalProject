@@ -31,10 +31,6 @@ J
 MyParkour/include/common.h,8\5\8597461f9d4be0f4938518448e4009640d8963b0
 H
 MyParkour/include/main.h,9\0\9039040e602e2fe9061baa3eb2a6164fc469baa4
-I
-MyParkour/include/cJSON.h,b\7\b73fb8eac46821b3ff881e0fc142b71faeb3dc8e
-E
-MyParkour/src/cJSON.c,1\8\1813ca0eff22921fd79ee61a4c9657a35178e5cc
 Q
 !MyParkour/include/utils/display.h,2\5\25534d19efa96fca532771f65a40230c2964e0ac
 M

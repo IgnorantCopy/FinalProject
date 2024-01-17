@@ -2,10 +2,10 @@
 	"artifacts" : 
 	[
 		{
-			"path" : "MyParkour/test/MyCJsonTest.exe"
+			"path" : "MyParkour/src/Parkour.exe"
 		},
 		{
-			"path" : "MyParkour/test/MyCJsonTest.pdb"
+			"path" : "MyParkour/src/Parkour.pdb"
 		}
 	],
 	"backtrace" : 1,
@@ -15,11 +15,12 @@
 		[
 			"add_executable",
 			"link_directories",
+			"target_link_libraries",
 			"include_directories"
 		],
 		"files" : 
 		[
-			"MyParkour/test/CMakeLists.txt",
+			"MyParkour/src/CMakeLists.txt",
 			"CMakeLists.txt",
 			"MyParkour/CMakeLists.txt"
 		],
@@ -31,7 +32,7 @@
 			{
 				"command" : 0,
 				"file" : 0,
-				"line" : 2,
+				"line" : 1,
 				"parent" : 0
 			},
 			{
@@ -46,6 +47,12 @@
 			{
 				"command" : 2,
 				"file" : 1,
+				"line" : 20,
+				"parent" : 2
+			},
+			{
+				"command" : 3,
+				"file" : 1,
 				"line" : 6,
 				"parent" : 2
 			},
@@ -53,10 +60,10 @@
 				"file" : 2
 			},
 			{
-				"command" : 2,
+				"command" : 3,
 				"file" : 2,
 				"line" : 1,
-				"parent" : 5
+				"parent" : 6
 			}
 		]
 	},
@@ -72,11 +79,11 @@
 			"includes" : 
 			[
 				{
-					"backtrace" : 4,
+					"backtrace" : 5,
 					"path" : "D:/codes/FinalProject/../../Import/mingw(CLion+VSC)/SDL2-2.26.0-allinone/x86_64-w64-mingw32/include"
 				},
 				{
-					"backtrace" : 6,
+					"backtrace" : 7,
 					"path" : "D:/codes/FinalProject/MyParkour/include"
 				}
 			],
@@ -92,11 +99,16 @@
 			"sourceIndexes" : 
 			[
 				0,
-				1
+				1,
+				2,
+				3,
+				4,
+				5,
+				6
 			]
 		}
 	],
-	"id" : "MyCJsonTest::@4299b5f132d8157280be",
+	"id" : "Parkour::@9d8b03c4171a11b4a721",
 	"link" : 
 	{
 		"commandFragments" : 
@@ -115,18 +127,48 @@
 				"role" : "libraryPath"
 			},
 			{
+				"backtrace" : 4,
+				"fragment" : "-lmingw32",
+				"role" : "libraries"
+			},
+			{
+				"backtrace" : 4,
+				"fragment" : "-lSDL2main",
+				"role" : "libraries"
+			},
+			{
+				"backtrace" : 4,
+				"fragment" : "-lSDL2",
+				"role" : "libraries"
+			},
+			{
+				"backtrace" : 4,
+				"fragment" : "-lSDL2_image",
+				"role" : "libraries"
+			},
+			{
+				"backtrace" : 4,
+				"fragment" : "-lSDL2_mixer",
+				"role" : "libraries"
+			},
+			{
+				"backtrace" : 4,
+				"fragment" : "-lSDL2_ttf",
+				"role" : "libraries"
+			},
+			{
 				"fragment" : "-lkernel32 -luser32 -lgdi32 -lwinspool -lshell32 -lole32 -loleaut32 -luuid -lcomdlg32 -ladvapi32",
 				"role" : "libraries"
 			}
 		],
 		"language" : "C"
 	},
-	"name" : "MyCJsonTest",
-	"nameOnDisk" : "MyCJsonTest.exe",
+	"name" : "Parkour",
+	"nameOnDisk" : "Parkour.exe",
 	"paths" : 
 	{
-		"build" : "MyParkour/test",
-		"source" : "MyParkour/test"
+		"build" : "MyParkour/src",
+		"source" : "MyParkour/src"
 	},
 	"sourceGroups" : 
 	[
@@ -135,7 +177,12 @@
 			"sourceIndexes" : 
 			[
 				0,
-				1
+				1,
+				2,
+				3,
+				4,
+				5,
+				6
 			]
 		}
 	],
@@ -144,13 +191,43 @@
 		{
 			"backtrace" : 1,
 			"compileGroupIndex" : 0,
-			"path" : "MyParkour/test/MyCJsonTest.c",
+			"path" : "MyParkour/src/main.c",
 			"sourceGroupIndex" : 0
 		},
 		{
 			"backtrace" : 1,
 			"compileGroupIndex" : 0,
-			"path" : "MyParkour/src/cJSON.c",
+			"path" : "MyParkour/src/menu.c",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "MyParkour/src/utils/widget.c",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "MyParkour/src/utils/input.c",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "MyParkour/src/utils/display.c",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "MyParkour/src/game.c",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "MyParkour/src/utils/cJSON.c",
 			"sourceGroupIndex" : 0
 		}
 	],
