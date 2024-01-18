@@ -5,19 +5,12 @@
 #ifndef FINALPROJECT_MAIN_H
 #define FINALPROJECT_MAIN_H
 
-#include <stdio.h>
-#include <stdbool.h>
 #include "common.h"
 #include "menu.h"
 #include "game.h"
 #include "utils/input.h"
 #include "utils/widget.h"
 #include "utils/display.h"
-#include "utils/cJSON.h"
-#include "SDL2/SDL.h"
-#include "SDL2/SDL_image.h"
-#include "SDL2/SDL_ttf.h"
-#include "SDL2/SDL_mixer.h"
 
 static void InitApp();
 static void QuitApp();

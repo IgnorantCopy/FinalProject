@@ -8,8 +8,6 @@
 #include "common.h"
 
 static void Quit();
-static void DoMouseButtonDown(SDL_MouseButtonEvent button);
-static void DoMouseButtonUp(SDL_MouseButtonEvent button);
 static void DoKeyDown(SDL_KeyboardEvent key);
 static void DoKeyUp(SDL_KeyboardEvent key);
 
